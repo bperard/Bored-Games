@@ -259,7 +259,9 @@ for (let i = 1; i <= playerOrder.length; i++) {
   // turn = 1
   here.turn = i;
   // deal initial cards
-  here.dealInitialCards(7,2);
+  const cardIndex1 = Math.floor(Math.random() * 8);
+  const cardIndex2 = Math.floor(Math.random() * 7);
+  here.dealInitialCards(cardIndex1, cardIndex2);
 }
 // turn = 0
 here.turn = 0;
@@ -268,13 +270,16 @@ here.finalTurnIndex = -1;
 
 // TURN
 // check finalTurnIndex < 0
+while (here.finalTurnIndex < 0) {
 // deal from deck(discardFromHand = true)/discardPile to hand
+
 // choose discard(discardFromHand) or replace
 // --discard from hand to discardPile && discardFromHand
 // -->> require replace deal to blank if blanks > 1
 // --replace to discardPile
 // check blanks > 0 for finalTurnIndex
 // nextTurn
+}
 
 // FINAL TURNS
 // turnIndex !== finalTurnIndex
