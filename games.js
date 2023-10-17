@@ -20,6 +20,8 @@
 //   }
 // }
 
+
+
 // CREATE GAME DECK FUNCTIONS
 
 function createStandardCards() {
@@ -115,6 +117,7 @@ class Game {
   
   shuffleDeck() {
     this.deck = this.shuffle(this.cards);
+    this.discardPile = [];
   }
   
   dealFromDeck() {
@@ -131,7 +134,7 @@ class PlayNineGame extends Game {
   constructor(createCards = createPlayNineCards) {
     super(createCards);
     this.round = 0;
-    this.turn = 1;
+    this.turn = 0;
     this.discardPile = [];
     this.finalTurnIndex = -1;
   }
@@ -237,25 +240,31 @@ class PlayNineGame extends Game {
 
 // RUN GAME
 
-const here = new PlayNineGame(createPlayNineCards);
-// console.log(here);
 
-const playersNamesArr = ['Blake', 'Adam', 'Anders'];
-
-playersNamesArr.forEach(player => here.addPlayer(player));
-
-// GAME
+// PLAY NINE GAME
 // create game
 // add players
 // shuffle players
+const here = new PlayNineGame(createPlayNineCards);
+const playersNamesArr = ['Blake', 'Adam', 'Anders'];
+playersNamesArr.forEach(player => here.addPlayer(player));
+here.shufflePlayerOrder();
+
 
 // ROUND
 // round < 9
 // shuffle deck
-// deal initial cards
-// round 0
+here.shuffleDeck();
+for (let i = 1; i <= playerOrder.length; i++) {
+  // turn = 1
+  here.turn = i;
+  // deal initial cards
+  here.dealInitialCards(7,2);
+}
 // turn = 0
+here.turn = 0;
 // finalTurnIndex < 0
+here.finalTurnIndex = -1;
 
 // TURN
 // check finalTurnIndex < 0
@@ -282,10 +291,9 @@ playersNamesArr.forEach(player => here.addPlayer(player));
 // allow start replay/leave/add players
 
 // console.log(here);
-here.shufflePlayerOrder();
-here.shuffleDeck();
+
 // console.log(here);
-here.dealInitialCards(7,2);
+
 console.log(here.playerOrder, 1);
 here.nextTurn();
 here.dealInitialCards(7,2);
